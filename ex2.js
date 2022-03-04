@@ -2,30 +2,35 @@ class Bookshelf {
 	constructor() {
 		this.favoriteBooks = [];
 	}
-
-	// TODO: define methods `addFavoriteBook(..)`
-	// and `printFavoriteBooks()`
-}
-
-function addFavoriteBook(bookName) {
-	if (!bookName.includes("Great")) {
-		favoriteBooks.push(bookName);
+	addFavoriteBook(bookName){
+		if (!bookName.includes('Great') && !bookName.includes('great')) {
+			this.favoriteBooks.push(bookName);
+			console.log(this.favoriteBooks)
+		}
 	}
-}
-
-function printFavoriteBooks() {
-	console.log(`Favorite Books: ${favoriteBooks.length}`);
-	for (let bookName of favoriteBooks) {
-		console.log(bookName);
+	printFavoriteBooks(){
+		console.log(`Favorite Books: ${String(this.favoriteBooks.length)}`);
+		for (let book of this.favoriteBooks) {
+			console.log(book);
+		}
 	}
+
 }
 
-function loadBooks( /* .. */ ) {
-	// TODO: call fakeAjax( .. );
-}
+// bookNames - esta reciviendo el arreglo de cb [...] 
+//function cb(["A Song of Ice and Fire", "The Great Gatsby", ...])
+function loadBooks( bookshelf ) {
+	fakeAjax(BOOK_API, function cb(bookNames){
+		for (let libro of bookNames) {
+			bookshelf.addFavoriteBook(libro);
+		}
+			bookshelf.printFavoriteBooks();
+	})
+};
 
 var BOOK_API = "https://some.url/api";
-
+let myBook = new Bookshelf()
+loadBooks(myBook);
 
 // ***********************
 
